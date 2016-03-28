@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  RootTableViewController.h
 //  Demo_Sort
 //
 //  Created by Claris on 2016.03.28.Monday.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface RootTableViewController : UITableViewController
 
 @end
-
