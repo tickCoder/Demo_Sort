@@ -47,6 +47,7 @@
 - (NSString *)desText {
     if ([self.title hasPrefix:@"选择排序"]) {
         _desText = @"先找到序列中最大元素并将它与序列中最后一个元素交换，然后找下一个最大元素并与倒数第二个元素交换，依次类推。";
+        _codeText = @"- (NSString *)sort_selection:(NSArray *)input {\n    NSInteger maxNumber = 0;\n    NSInteger maxIndex = 0;\n    NSMutableArray *sortedList = [[NSMutableArray alloc] initWithArray:input];\n    for (NSInteger i=sortedList.count-1; i>0; i--) {\n        maxNumber = [sortedList[0] integerValue];\n        maxIndex = 0;\n        for (NSInteger j=0; j<=i; j++) {\n            if (maxNumber < [sortedList[j] integerValue]) {\n                maxNumber = [sortedList[j] integerValue];\n                maxIndex = j;\n            }\n        }\n        [sortedList exchangeObjectAtIndex:i withObjectAtIndex:maxIndex];\n    }\n    return [sortedList componentsJoinedByString:@\", \"];\n}";
     } else if ([self.title hasPrefix:@"插入排序"]) {
         _desText = @"1.从第一个元素开始，该元素可以认为已经被排序。\n2.取出下一个元素，在已经排序的元素序列中从后向前扫描。\n3.如果该元素（已排序）大于新元素，将该元素移到下一位置。\n4.重复步骤3，直到找到已排序的元素小于或者等于新元素的位置。\n5.将新元素插入到下一位置。\n6.重复步骤2。";
     } else if ([self.title hasPrefix:@"冒泡排序"]) {
@@ -103,6 +104,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             _preLabel.text = self.preText;
             _afterLabel.text = self.afterText;
+            _codeLabel.text = self.codeText;
         });
         
     });
@@ -114,12 +116,21 @@
  *
  */
 - (NSString *)sort_selection:(NSArray *)input {
-    for (NSInteger i=input.count-1; i>0; i--) {
-        NSInteger largest = [input[0] integerValue];
-        
+    NSInteger maxNumber = 0;
+    NSInteger maxIndex = 0;
+    NSMutableArray *sortedList = [[NSMutableArray alloc] initWithArray:input];
+    for (NSInteger i=sortedList.count-1; i>0; i--) {
+        maxNumber = [sortedList[0] integerValue];
+        maxIndex = 0;
+        for (NSInteger j=0; j<=i; j++) {
+            if (maxNumber < [sortedList[j] integerValue]) {
+                maxNumber = [sortedList[j] integerValue];
+                maxIndex = j;
+            }
+        }
+        [sortedList exchangeObjectAtIndex:i withObjectAtIndex:maxIndex];
     }
-    
-    return [NSString stringWithFormat:@"%s", __FUNCTION__];
+    return [sortedList componentsJoinedByString:@", "];
 }
 
 /**
